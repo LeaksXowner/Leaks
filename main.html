@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Join Telegram Channels</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #000;
+      --bg-light: #f5f5f5;
+      --text-dark: #fff;
+      --text-light: #111;
+      --card-dark: rgba(255, 255, 255, 0.04);
+      --card-light: rgba(255, 255, 255, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: 1px solid currentColor;
+      padding: 6px 12px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--card-dark);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 28px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      animation: fadeIn 1.2s ease;
+    }
+
+    body.light .card {
+      background: var(--card-light);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      object-fit: cover;
+      border: 2px solid #1da1f2;
+      animation: scaleIn 0.6s ease-in-out;
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    body.light p {
+      color: #444;
+    }
+
+    .circle-loader {
+      width: 22px;
+      height: 22px;
+      border: 3px solid #1da1f2;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      display: inline-block;
+      animation: spin 1s linear infinite;
+      margin-left: 8px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .links a {
+      display: block;
+      background: #1da1f2;
+      color: #fff;
+      text-decoration: none;
+      padding: 13px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .links a:hover {
+      transform: scale(1.02);
+      background: #1990dd;
+    }
+
+    footer {
+      font-size: 11px;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 20px;
+      }
+    }
+  </style>
+
+  <!-- Analytics -->
+  <script defer data-domain="benevolent-frangipane-1ef707.netlify.app" src="https://plausible.io/js/script.js"></script>
+</head>
+<body>
+  <button class="toggle-theme" onclick="toggleTheme()">🌙 Dark</button>
+
+  <div class="card">
+    <img src="logo.jpg" alt="Logo" class="logo" />
+    <h1>Join Our Telegram Channels</h1>
+    <p>Redirecting in <span id="count">5</span> seconds <span class="circle-loader"></span></p>
+
+    <div class="links">
+      <a href="https://t.me/+bVhBoh8IqJxhYTQ1" target="_blank">Channel 1</a>
+      <a href="https://t.me/+eRWnnaCqh1A1NzQ1" target="_blank">Channel 2</a>
+      <a href="https://t.me/+zlStEzyUS_plMmVl" target="_blank">Channel 3</a>
+    </div>
+
+    <footer>© 2025 Made with 💙</footer>
+  </div>
+
+<script>
+    let seconds = 5;
+    function updateCountdown() {
+      document.getElementById("count").textContent = seconds;
+      seconds--;
+      if (seconds < 0) {
+        window.location.href = "https://t.me/+bVhBoh8IqJxhYTQ1";
+      } else {
+        setTimeout(updateCountdown, 1000);
+      }
+    }
+    window.onload = updateCountdown;
+
+    // Theme Toggle
+    const body = document.body;
+    const toggleBtn = document.querySelector('.toggle-theme');
+
+    function setTheme(mode) {
+      if (mode === 'light') {
+        body.classList.add('light');
+        toggleBtn.textContent = '☀️ Light';
+      } else {
+        body.classList.remove('light');
+        toggleBtn.textContent = '🌙 Dark';
+      }
+      localStorage.setItem('theme', mode);
+    }
+
+    function toggleTheme() {
+      const current = body.classList.contains('light') ? 'dark' : 'light';
+      setTheme(current);
+    }
+
+    // Load Saved Theme
+    const saved = localStorage.getItem('theme') || 'dark';
+    setTheme(saved);
+  </script>
+</body>
+  </html>
